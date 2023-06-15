@@ -1,0 +1,24 @@
+syntax = "proto3"
+
+message Person {
+    str first_name = 2;
+    str last_name = 3;
+    Date birth_date = 4;
+    Address address = 5;
+    repeated str contacts;
+}
+
+
+message Date {
+    int32 year  = 1;
+    int32 mont  = 2;
+    int32 day   = 3;
+}
+
+
+message Address {
+    str street = 1;
+    str number = 2;
+    str zip_code = 3;
+    str city = 4;
+}
