@@ -1,10 +1,10 @@
 syntax = "proto3"
 
 message Person {
-    str first_name = 2;
-    str last_name = 3;
-    Date birth_date = 4;
-    Address address = 5;
+    str first_name = 1;
+    str last_name = 2;
+    Date birth_date = 3;
+    Address address = 4;
     repeated str contacts;
 }
 
