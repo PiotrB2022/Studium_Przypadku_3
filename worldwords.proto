@@ -99,3 +99,24 @@ service Students {
     rpc List(Empty) returns
         (stream Student) {}
 }
+
+// Course and Student Class
+
+message CourseStudent {
+    CourseID course_id = 1;
+    SID student_id = 2;
+}
+
+service CourseStudents {
+    // zapis studenta na kurs
+    rpc Add(CourseStudent)
+        returns (Student) {}
+
+    // wypisanie studenta z kursu
+    rpc Delete(CourseStudent)
+        returns (Student) {}
+
+    // uzyskanie listy uczestnikow kursu
+    rpc List(CourseID)
+        returns (stream Student) {}
+}
