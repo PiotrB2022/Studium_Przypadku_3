@@ -1,7 +1,0 @@
-syntax = "proto3";
-
-message Course {
-    int32 course_id = 1;
-    str course_name = 2;
-    str course_level = 3;
-}
