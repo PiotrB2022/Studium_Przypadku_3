@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+// Studium_Przypadku_3_gRPC
+// API szkoly jezykow 'WorldWords'
+
+option java_package = "wsb.studium_przypadku_3.grpc";
+
+message Empty {}
+
+// KURSY:
+message CourseID {
+    string course_id = 1;
+}
+
+message Course {
+    string name = 1;
+    string description = 2;
+
+    enum CourseStatus {
+        UNKNOWN_STATUS = 0;
+        IS_PENDING = 1;
+        NOT_PENDING = 2;
+    }
+
+    enum CourseLevel {
+        UNKNOWN = 0;
+        BEGINNER = 1;
+        MEDIUM = 2;
+        ADVANCED = 3;
+    }
+
+    CourseStatus course_status = 3;
+    CourseLevel course_level = 4;
+    CourseID course_id = 5;
+}
+
+service Courses {
+    // dodanie kursu
+    rpc Add(Course)
+        returns (Empty) {}
+
+    // uzyskanie informacji o kursie
+    rpc Description(CourseID)
+        returns (Course) {}
+
+    // aktualizacja kursu
+    rpc Update(Course)
+        returns (Course) {}
+
+    // kasowanie kursu
+    rpc Remove(CourseID)
+        returns (Course) {}
+
+    // uzyskanie listy kursów
+    rpc List(Empty)
+        returns (Course) {}
+}
