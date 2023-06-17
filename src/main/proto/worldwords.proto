@@ -1,0 +1,122 @@
+syntax = "proto3";
+
+// Studium_Przypadku_3_gRPC
+// API szkoly jezykow 'WorldWords'
+
+option java_package = "wsb.studium_przypadku_3.grpc";
+
+message Empty {}
+
+// KURSY:
+message CourseID {
+    string course_id = 1;
+}
+
+message Course {
+    string name = 1;
+    string description = 2;
+
+    enum CourseStatus {
+        UNKNOWN_STATUS = 0;
+        IS_PENDING = 1;
+        NOT_PENDING = 2;
+    }
+
+    enum CourseLevel {
+        UNKNOWN = 0;
+        BEGINNER = 1;
+        MEDIUM = 2;
+        ADVANCED = 3;
+    }
+
+    CourseStatus course_status = 3;
+    CourseLevel course_level = 4;
+    CourseID course_id = 5;
+}
+
+service Courses {
+    // dodanie kursu
+    rpc Add(Course)
+        returns (Empty) {}
+
+    // uzyskanie informacji o kursie
+    rpc Description(CourseID)
+        returns (Course) {}
+
+    // aktualizacja kursu
+    rpc Update(Course)
+        returns (Course) {}
+
+    // kasowanie kursu
+    rpc Delete(CourseID)
+        returns (Course) {}
+
+    // uzyskanie listy kursów
+    rpc List(Empty)
+        returns (Course) {}
+}
+
+//STUDENCI
+message SID {
+    string id = 1;
+}
+
+message Student {
+    SID student_id = 1;
+    string first_name = 2;
+    string last_name = 3;
+}
+
+message StudentFull {
+    Student student = 1;
+    string email = 2;
+    string phone = 3;
+    // repeated phone = 3;
+}
+
+service Students {
+    // dodanie studenta
+    rpc Add(StudentFull)
+        returns (Student) {}
+
+    // usuniecie studenta
+    rpc Delete(SID)
+        returns (Student) {}
+
+    // zmiana danych studenta
+    rpc Update(StudentFull)
+        returns (Student) {}
+
+    // uzyskanie danych studenta
+    rpc Info(SID)
+        returns (Student) {}
+
+    // uzyskanie pelnych danych studenta
+    rpc FullInfo(SID)
+        returns (StudentFull) {}
+
+    // uzyskanie listy studentow
+    rpc List(Empty) returns
+        (stream Student) {}
+}
+
+// Course and Student Class
+
+message CourseStudent {
+    CourseID course_id = 1;
+    SID student_id = 2;
+}
+
+service CourseStudents {
+    // zapis studenta na kurs
+    rpc Add(CourseStudent)
+        returns (Student) {}
+
+    // wypisanie studenta z kursu
+    rpc Delete(CourseStudent)
+        returns (Student) {}
+
+    // uzyskanie listy uczestnikow kursu
+    rpc List(CourseID)
+        returns (stream Student) {}
+}
